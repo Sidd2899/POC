@@ -20,7 +20,7 @@ class UCorpus:
     
     #fetching changes from remote repo
     def fetch(self):
-        self.d.fetch(self,remote='remote_store')
+        self.d.fetch(targets=None,remote='remote_store')
         self.g.remote().fetch()
     
     #Creating remote 
