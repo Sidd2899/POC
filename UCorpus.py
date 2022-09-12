@@ -1,3 +1,4 @@
+from typing import Any
 from dvc.repo import Repo
 import git
 
@@ -16,14 +17,20 @@ class UCorpus:
     #Clone an existing repository into a new directory,
     def clone(localRepo,RepoAddress):
         git.Git(localRepo).clone(RepoAddress)
+    
+    #fetching changes from remote repo
     def fetch(self):
+        self.d.fetch(Any,remote='remote_store')
         self.g.remote().fetch()
-
+    
+    #Creating remote 
     def remote(self,remoterepolocation,gitrepoloc):
         with self.d.config.edit() as conf:
             conf["remote"]["remote_store"] = {"url": str(remoterepolocation)}
         self.g.delete_remote('master')
         self.g.create_remote('master',str(gitrepoloc))
+    
+    #pushing the Changes to the Remote Repo
     def push(self):
         Repo.push(self.d,remote='remote_store')
         print(self.g.remotes.master.push())
